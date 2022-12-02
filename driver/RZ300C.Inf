@@ -1,0 +1,66 @@
+[Version]
+Signature="$CHICAGO$"
+Class=Image
+ClassGuid = {6bdd1fc6-810f-11d0-bec7-08002be2092f} 
+Provider=%MfgName%
+DriverVer = 10/01/2002,2.00
+
+[Manufacturer]
+%MfgName%=RZCY
+
+[RZCY]
+%USB\VID_0100&PID_0010.DeviceDesc%=usbscan.Dev, USB\VID_0100&PID_0010
+%USB\VID_0200&PID_0020.DeviceDesc%=usbscan.Dev, USB\VID_0200&PID_0020
+%USB\VID_0300&PID_0030.DeviceDesc%=usbscan.Dev, USB\VID_0300&PID_0030
+
+[DestinationDirs]
+usbscan.Files.Sys32 = 10, System32\Drivers
+usbscan.Files.Inf   = 10, INF
+usbscan.CopyTwain  = 10,twain_32\USB2800
+usbscan.CopyTwnXP  = 10,twain_32\USB2800
+usbscan.DLL = 10, System32\
+
+[usbscan.Dev]
+DriverVer = 10/01/2002,2.00
+CopyFiles=usbscan.Files.Sys32, usbscan.Files.Inf,usbscan.CopyTwain,usbscan.CopyTwnXP,usbscan.DLL
+AddReg=usbscan.AddReg
+
+[usbscan.Dev.NT]
+DriverVer = 04/01/2001,2.00
+CopyFiles=usbscan.Files.Sys32, usbscan.Files.Inf,usbscan.CopyTwain,usbscan.CopyTwnXP,usbscan.DLL
+AddReg=usbscan.AddReg
+
+[usbscan.Dev.NT.Services]
+Addservice = usbscan, 0x00000002, usbscan.AddService
+
+[usbscan.AddService]
+DisplayName    = %usbscan.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\usbscan.sys
+LoadOrderGroup = Base
+
+[usbscan.AddReg]
+HKR,,DevLoader,,*ntkern"
+HKR,,NTMPDriver,,usbscan.sys
+
+[usbscan.CopyTwain]
+RZ300.DS
+
+[usbscan.CopyTwnXP]
+RZ300.DS
+
+
+[usbscan.Files.Inf]
+RZ300C.Inf
+
+[usbscan.Files.Sys32]
+usbscan.sys
+
+[Strings] 
+USB\VID_0100&PID_0010.DeviceDesc="SW130C USB2.0 CAMERA "
+USB\VID_0200&PID_0020.DeviceDesc="SW200C USB2.0 CAMERA "
+USB\VID_0300&PID_0030.DeviceDesc="SW300C USB2.0 CAMERA "
+usbscan.SvcDesc="usbscan Device Driver"
+MfgName="SW USB2.0 CAMERA "
